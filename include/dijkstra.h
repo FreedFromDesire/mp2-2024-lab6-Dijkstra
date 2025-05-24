@@ -8,6 +8,13 @@
 const double eps = 1e-15;
 
 Vector<Vector<int>> generate_connected_graph_matrix(int n, int m, bool is_oriented) {
+
+	Vector<Vector<int>> graph(n, Vector<int>(n, 0));
+
+	if (n == 1 && m == 0) {
+		return graph;
+	}
+
 	if (is_oriented) {
 		m = std::max(m, n);
 		m = std::min(m, n * n - n);
@@ -16,9 +23,6 @@ Vector<Vector<int>> generate_connected_graph_matrix(int n, int m, bool is_orient
 		m = std::max(m, n - 1);
 		m = std::min(m, n * (n - 1) / 2);
 	}
-	
-
-	Vector<Vector<int>> graph(n, Vector<int>(n, 0));
 
 	Vector<Vector<bool>> dsu;
 	int edges_added = 0;
@@ -131,12 +135,6 @@ public:
 
 	void generate_random(int c, bool is_oriented) {
 		Vector<Vector<int>> a = generate_connected_graph_matrix(n,c, is_oriented);
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				std::cout << a[i][j] << ' ';
-			}
-			std::cout << '\n';
-		}
 
 		random_device rd;
 		mt19937_64 gen(rd());
